@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="MARC generates articulated-object programs from images and text, sharing a kinematic graph across construction, motion solving, and reflective correction.">
+  <meta property="og:title" content="MARC: Mechanism-Aware Reflective Correction">
+  <meta property="og:description" content="Generating articulated objects whose parts move together. Explore the method, recorded motion, and comparisons.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/social-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>MARC | Mechanism-Aware Reflective Correction</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=20261018-front-motion">
+  <script src="assets/showcase-data.js?v=20261018-front-motion" defer></script>
+  <script src="app.js?v=20261018-front-motion" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <nav class="navigation" aria-label="Main navigation">
+    <a class="wordmark" href="#">MARC<span>.</span></a>
+    <div><a href="#overview">Overview</a><a href="#method">Method</a><a href="#comparisons">Comparisons</a><a href="#results">Results</a></div>
+  </nav>
+</header>
+<main id="main">
+  <section class="publication container" aria-labelledby="paper-title">
+    <h1 id="paper-title"><span class="title-line"><span class="marc">MARC:</span> Mechanism-Aware</span><span class="title-line">Reflective Correction</span><span class="title-subline">for Articulated Object Code Generation</span></h1>
+    <div class="authors" aria-label="Authors">
+      <span>Xiong Yang<sup>1,2,*</sup></span><span>Jinkun Hao<sup>1,*</sup></span><span>Zijian Xiao<sup>1,2</sup></span><span>Zipeng Ye<sup>2,†</sup></span><span>Yuchen Xie<sup>2</sup></span><span>Ran Yi<sup>1,†,‡</sup></span>
+    </div>
+    <div class="affiliations"><span><sup>1</sup> Shanghai Jiao Tong University</span><span><sup>2</sup> Meituan</span></div>
+    <p class="author-notes">* Equal contribution &nbsp; † Project leader &nbsp; ‡ Corresponding author</p>
+    <div class="publication-links">
+      <a class="pill" href="assets/MARC-paper.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg>Paper</a>
+      <a class="pill" href="#overview"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg>Video</a>
+      <a class="pill" href="supplement/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Visual supplement</a>
+    </div>
+    <figure class="teaser motion-group" data-period="5000">
+      <div class="teaser-grid">
+        <div class="asset"><img data-motion="scissor_lift" width="760" height="620" alt="A MARC-generated scissor lift extending and contracting"><span>Scissor lift</span></div>
+        <div class="asset"><img data-motion="piston_engine" width="760" height="620" alt="A MARC-generated piston engine with coordinated crankshaft and piston motion"><span>Piston engine</span></div>
+        <div class="asset"><img data-motion="planetary_gearset" width="760" height="620" alt="A MARC-generated planetary gearset in motion"><span>Planetary gearset</span></div>
+      </div>
+      <figcaption><span>From images and text to articulated programs with coordinated motion.</span><button class="motion-toggle" type="button" aria-label="Pause generated mechanism previews" aria-pressed="true">Pause motion Ⅱ</button></figcaption>
+    </figure>
+    <p class="teaser-takeaway">One kinematic graph connects <strong>how a mechanism is built, how it moves,<br class="desktop-break"> and how the agent repairs it.</strong></p>
+  </section>
+  <section class="abstract section narrow" id="abstract">
+    <h2>Abstract</h2>
+    <p>Generating an articulated object from images and text requires more than plausible parts and movable joints: the assembled mechanism must execute the intended motion. We introduce <strong>MARC</strong>, Mechanism-Aware Reflective Correction, an agent framework that shares an executable kinematic graph across program construction, motion solving, and correction. Physical connections are bound to local attachment frames, while loop closures and joint-coordinate couplings describe how the parts move together. A numerical solver computes follower motion and associates anomalies with specific connections and configurations. The agent uses this information to probe possible causes, revise connections or geometry, and test the mechanism again. On a 20-object test set, MARC with Kimi-K3 achieves <strong>67.8% valid motion coverage</strong> and <strong>60.0% overall success</strong>. Starting from the same initial candidates, reflective correction improves these scores by 13.7 and 20.0 percentage points, respectively.</p>
+  </section>
+  <section class="section container" id="overview">
+    <div class="section-heading"><h2>Video overview</h2><p>Construction, motion solving, and correction in 90 seconds.</p></div>
+    <figure class="video-figure"><video id="project-film" controls playsinline preload="metadata" poster="assets/video-poster.jpg" width="1920" height="1080"><source src="assets/MARC_overview_90s.mp4?v=20261018-front-motion" type="video/mp4"><track kind="subtitles" src="assets/subtitles-en.vtt?v=20261018-front-motion" srclang="en" label="English"><p><a href="assets/MARC_overview_90s.mp4">Download the video</a></p></video><figcaption><span>MARC · Project overview</span><a href="assets/MARC_overview_90s.mp4" download>Download MP4 ↓</a></figcaption></figure>
+  </section>
+  <section class="section tinted" id="method"><div class="container">
+    <div class="section-heading"><h2>A shared graph for generation and repair</h2><p>Motion errors point back to the connections and geometry the agent can edit.</p></div>
+    <p class="section-intro">MARC represents rigid bodies, physical connections, loop closures, and coordinate couplings in one executable kinematic graph. Each connection is bound to local attachment frames, or sockets, so its geometric location stays explicit throughout construction, numerical execution, and correction.</p>
+    <figure class="method-figure"><a href="assets/framework-final.png" target="_blank" rel="noopener" aria-label="Open the full-resolution MARC method diagram"><img src="assets/framework-final.png" width="2400" height="1000" alt="MARC workflow: Topology builds the mechanism, Solver computes motion, Evaluate checks the result, and Judge, Executor, and Reviewer guide correction" loading="lazy"></a><figcaption>MARC's generation and correction workflow. The socket edit in the diagram is schematic. <a href="assets/framework-final.png" target="_blank" rel="noopener">View full size ↗</a></figcaption></figure>
+    <div class="method-steps">
+      <article><span class="step-number">1</span><h3>Construct the mechanism</h3><p>The agent writes a program defining geometry, socket-bound connections, and motion relationships through a mechanism-authoring SDK.</p></article>
+      <article><span class="step-number">2</span><h3>Solve and inspect motion</h3><p>A numerical solver computes follower motion from prescribed driver inputs, recording anomalies at the bodies, joints, and sockets involved.</p></article>
+      <article><span class="step-number">3</span><h3>Locate, revise, and retest</h3><p>The agent probes possible causes, coordinates edits to connections and geometry, and reruns the complete mechanism along the original motion paths.</p></article>
+    </div>
+  </div></section>
+  <section class="section container" id="comparisons">
+    <div class="section-heading"><h2>Look at how the parts move together</h2><p>Connection and coupling behavior in a generated dual-head lamp.</p></div>
+    <div id="comparison-panel" role="region" aria-labelledby="case-title">
+      <div class="case-context"><div><h3 id="case-title">Keeping the linkage connected</h3><p id="case-description">As the lamp extends, its crossing links and pivots must stay connected. Compare how the generated assemblies respond to their control inputs.</p></div><figure class="input-reference"><img id="reference-image" width="180" height="150" alt="Input reference for the dual-head lamp"><figcaption>Input reference</figcaption></figure></div>
+      <div class="comparison-grid"><figure><div class="method-label"><span>Articraft</span><span class="backbone">Kimi-K3</span></div><img id="baseline-image" width="760" height="620" alt="Articraft dual-head lamp at a recorded motion state"><figcaption id="baseline-control">Native control</figcaption></figure><figure class="ours"><div class="method-label"><span>MARC <small>Ours</small></span><span class="backbone">Kimi-K3</span></div><img id="ours-image" width="760" height="620" alt="MARC dual-head lamp at a recorded motion state"><figcaption id="ours-control">Native control</figcaption></figure></div>
+      <div class="playback"><button type="button" id="compare-play" aria-label="Pause comparison" aria-pressed="true">Ⅱ</button><label class="sr-only" for="motion-progress">Recorded sequence progress</label><input id="motion-progress" type="range" min="0" max="1000" value="0"><output id="motion-value" for="motion-progress">0%</output><button type="button" class="reset-playback" id="compare-reset" aria-label="Restart comparison">↺</button></div>
+      <p class="comparison-note">Separate outputs with the same backbone. Recorded native-control states are aligned by sequence progress.</p>
+      <a class="text-link" id="full-case" href="supplement/index.html#baseline/dual_head_lamp2">Compare all seven methods →</a>
+    </div>
+  </section>
+  <section class="section tinted" id="gallery"><div class="container">
+    <div class="section-heading"><h2>More generated mechanisms</h2><p>Closed chains, transmissions, and everyday articulated objects.</p></div>
+    <div class="gallery-grid motion-group" data-period="5000">
+      <figure class="asset"><img data-motion="walking_linkage" width="760" height="620" loading="lazy" alt="MARC-generated walking linkage"><figcaption>Walking linkage</figcaption></figure>
+      <figure class="asset"><img data-motion="scotch_yoke" width="760" height="620" loading="lazy" alt="Front-view recorded motion of the MARC-generated Scotch yoke, showing the rotating gears and reciprocating slider"><figcaption>Scotch yoke</figcaption></figure>
+      <figure class="asset"><img data-motion="universal_joint" width="760" height="620" loading="lazy" alt="MARC-generated universal joint"><figcaption>Universal joint</figcaption></figure>
+      <figure class="asset"><img data-motion="scissor_lift2" width="760" height="620" loading="lazy" alt="MARC-generated screw-driven scissor lift"><figcaption>Screw-driven scissor lift</figcaption></figure>
+      <figure class="asset"><img data-motion="four_bar_crank_rocker" width="760" height="620" loading="lazy" alt="MARC-generated crank-rocker linkage"><figcaption>Crank–rocker linkage</figcaption></figure>
+      <figure class="asset"><img data-motion="gear_linkage_hybrid" width="760" height="620" loading="lazy" alt="MARC-generated gear-linkage hybrid"><figcaption>Gear–linkage hybrid</figcaption></figure>
+      <div class="gallery-footer"><span>Generated mechanisms · Kimi-K3</span><button class="motion-toggle" type="button" aria-label="Pause gallery previews" aria-pressed="true">Pause motion Ⅱ</button></div>
+    </div>
+    <p class="center-link"><a class="text-link" href="supplement/index.html">Explore all 20 objects in the visual supplement →</a></p>
+  </div></section>
+  <section class="section container" id="results">
+    <div class="section-heading"><h2>Reflective correction improves valid motion</h2><p>From the same initial candidates, more mechanisms complete their prescribed motion.</p></div>
+    <div class="experiment-context">20 objects <span>·</span> Kimi-K3 <span>·</span> Same initial candidates <span>·</span> Paper, Table 4</div>
+    <div class="results-grid">
+      <article class="metric"><h3>Valid motion coverage</h3><div class="metric-value"><span>54.1<small>%</small></span><span class="metric-arrow">→</span><strong>67.8<small>%</small></strong></div><div class="chart-row"><span>Without reflection</span><div class="bar-track"><i style="width:54.1%"></i></div></div><div class="chart-row"><span>Full MARC</span><div class="bar-track"><i class="full" style="width:67.8%"></i></div></div><p class="gain">+13.7 percentage points</p></article>
+      <article class="metric"><h3>Overall success rate</h3><div class="metric-value"><span>40.0<small>%</small></span><span class="metric-arrow">→</span><strong>60.0<small>%</small></strong></div><div class="chart-row"><span>Without reflection</span><div class="bar-track"><i style="width:40%"></i></div></div><div class="chart-row"><span>Full MARC</span><div class="bar-track"><i class="full" style="width:60%"></i></div></div><p class="gain">+20.0 percentage points</p></article>
+    </div>
+    <p class="result-note">Valid motion coverage measures the proportion of prescribed samples reached while satisfying connection, joint-limit, and collision criteria. Overall success additionally requires the critical structural and motion requirements and complete valid sampled coverage.</p>
+    <p class="center-link"><a class="text-link" href="assets/MARC-paper.pdf" target="_blank" rel="noopener">Full comparisons and ablations in the paper →</a></p>
+  </section>
+  <section class="section tinted" id="citation"><div class="narrow"><div class="citation-heading"><h2>Citation</h2><button type="button" id="copy-citation">Copy BibTeX</button></div><p class="citation-note">Preprint citation. The arXiv identifier and link will be added when available.</p><pre><code id="bibtex">@misc{yang2026marc,
+  title  = {{MARC}: Mechanism-Aware Reflective Correction
+            for Articulated Object Code Generation},
+  author = {Xiong Yang and
+            Jinkun Hao and
+            Zijian Xiao and
+            Zipeng Ye and
+            Yuchen Xie and
+            Ran Yi},
+  year   = {2026},
+  note   = {Preprint}
+}</code></pre><p id="copy-status" role="status" aria-live="polite"></p></div></section>
+</main>
+<footer class="site-footer"><div class="container"><a class="wordmark" href="#">MARC<span>.</span></a><p>Shanghai Jiao Tong University &nbsp;·&nbsp; Meituan</p><a href="#">Back to top ↑</a></div></footer>
+<noscript><p class="container">Enable JavaScript to replay the recorded mechanism states. The paper, video, and supplement are available through the links above.</p></noscript>
+</body>
+</html>
